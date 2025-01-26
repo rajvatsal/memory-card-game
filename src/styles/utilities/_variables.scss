@@ -1,0 +1,340 @@
+@use 'sass:color';
+@use '/src/assets/barlow/barlow-font.scss' as barlow;
+
+$dark-blue: oklch(20.94% 0.0133 204.69);
+$green: oklch(89.5% 0.20970256696719095 144.2306789218844);
+$red: oklch(44.99% 0.1366 21.88);
+$orange: oklch(82.05% 0.1633 85.99);
+$purple: oklch(58.1% 0.0765 346.24);
+$indian-red: color.to-space(#c1666b, oklch);
+
+$clr-primary: $dark-blue;
+$primary-200: color.adjust($clr-primary, $lightness: 70%, $space: oklch);
+$primary-300: color.adjust($clr-primary, $lightness: 10%, $space: oklch);
+$primary-400: $clr-primary;
+
+$clr-accent: $indian-red;
+$accent-300: color.adjust($clr-accent, $lightness: 35%, $space: oklch);
+$accent-400: $clr-accent;
+$accent-500: color.adjust($clr-accent, $lightness: -30%, $space: oklch);
+
+$clr-valid: $green;
+$valid-100: color.adjust(
+  $clr-valid,
+  $chroma: -30%,
+  $lightness: 10%,
+  $space: oklch
+);
+$valid-400: $clr-valid;
+$valid-500: color.adjust($clr-valid, $lightness: -40%, $space: oklch);
+
+$clr-invalid: $red;
+$invalid-400: $clr-invalid;
+$invalid-100: color.adjust($clr-invalid, $lightness: 70%, $space: oklch);
+
+$clr-warning: $orange;
+$warning-400: $clr-warning;
+$warning-100: color.adjust(
+  $clr-warning,
+  $chroma: -15%,
+  $lightness: 10%,
+  $space: oklch
+);
+
+:root {
+  /* --------------------------------
+
+  Colors
+
+  -------------------------------- */
+
+  --clr-neutral-900: #000;
+  --clr-neutral-800: #202020;
+  --clr-neutral-700: #3b3b3b;
+  --clr-neutral-600: #585858;
+  --clr-neutral-500: #767676;
+  --clr-neutral-400: #969696;
+  --clr-neutral-300: #b7b7b7;
+  --clr-neutral-200: #dadada;
+  --clr-neutral-160: #ededed;
+  --clr-neutral-150: #f4f4f4;
+  --clr-neutral-100: #fdfdfd;
+  --clr-neutral-accent: var(--clr-neutral-160);
+
+  --clr-primary-200: #{$primary-200};
+  --clr-primary-300: #{$primary-300};
+  --clr-primary-400: #{$primary-400};
+
+  --clr-accent-300: #{$accent-300};
+  --clr-accent-400: #{$accent-400};
+  --clr-accent-500: #{$accent-500};
+
+  /* Feedback Colors */
+  --clr-semantic_valid-500: #{$valid-500};
+  --clr-semantic_valid-400: #{$valid-400};
+  --clr-semantic_valid-100: #{$valid-100};
+
+  --clr-semantic_invalid-400: #{$invalid-400};
+  --clr-semantic_invalid-100: #{$invalid-100};
+
+  --clr-semantic_warning-400: #{$warning-400};
+  --clr-semantic_warning-100: #{$warning-100};
+
+  /* --------------------------------
+
+  Font Family
+
+  -------------------------------- */
+
+  --ff-primary-300: #{barlow.$ff-barlow-light};
+  --ff-primary-310: #{barlow.$ff-barlow-light_itl};
+  --ff-primary-400: #{barlow.$ff-barlow-regular};
+  --ff-primary-410: #{barlow.$ff-barlow-regular_itl};
+  --ff-primary-500: #{barlow.$ff-barlow-medium};
+  --ff-primary-510: #{barlow.$ff-barlow-medium_itl};
+  --ff-primary-600: #{barlow.$ff-barlow-semibold};
+  --ff-primary-610: #{barlow.$ff-barlow-semibold_itl};
+  --ff-primary-700: #{barlow.$ff-barlow-bold};
+  --ff-primary-710: #{barlow.$ff-barlow-bold_itl};
+  --ff-primary-700: #{barlow.$ff-barlow-black};
+
+  /* --------------------------------
+
+  Font Size
+
+  -------------------------------- */
+
+  --fs-base: 1rem;
+  --fs-ratio: 1.25;
+  --fs-100: calc(1em / (var(--fs-ratio) * var(--fs-ratio)));
+  --fs-200: calc(1em / var(--fs-ratio));
+  --fs-300: calc(1em * var(--fs-ratio));
+  --fs-400: calc(1em * var(--fs-ratio) * var(--fs-ratio));
+  --fs-500: calc(1em * var(--fs-ratio) * var(--fs-ratio) * var(--fs-ratio));
+  --fs-600: calc(
+    1em * var(--fs-ratio) * var(--fs-ratio) * var(--fs-ratio) * var(--fs-ratio)
+  );
+  --fs-700: calc(
+    1em * var(--fs-ratio) * var(--fs-ratio) * var(--fs-ratio) *
+      var(--fs-ratio) * var(--fs-ratio)
+  );
+  --fs-800: calc(1em * pow(var(--fs-ratio), 5));
+  --fs-900: calc(1em * pow(var(--fs-ratio), 6));
+
+  /* --------------------------------
+
+  Space
+
+  -------------------------------- */
+
+  /* Fibonacci Sequence */
+  --sp-base: 16px;
+  --sp-100: calc(0.25 * var(--sp-base));
+  --sp-200: calc(0.5 * var(--sp-base));
+  --sp-300: calc(0.75 * var(--sp-base));
+  --sp-400: calc(1.25 * var(--sp-base));
+  --sp-500: calc(2 * var(--sp-base));
+  --sp-600: calc(3.25 * var(--sp-base));
+  --sp-700: calc(5.25 * var(--sp-base));
+
+  /* --------------------------------
+
+  Line Height
+
+  -------------------------------- */
+
+  --lh-body: 1.15em;
+  --lh-heading: 0.95em;
+
+  /* --------------------------------
+
+  letter Space
+
+  -------------------------------- */
+
+  --l-sp-base: 1px;
+  --l-sp-100: calc(var(--l-sp-base) - 3.5px);
+  --l-sp-200: calc(var(--l-sp-base) - 3px);
+  --l-sp-300: calc(var(--l-sp-base) - 2px);
+  --l-sp-400: calc(var(--l-sp-base) - 1.5px);
+  --l-sp-500: calc(var(--l-sp-base) - 1px);
+
+  /* --------------------------------
+
+  Icons
+
+  -------------------------------- */
+
+  --icn-size-100: 16px;
+  --icn-size-200: 24px;
+  --icn-size-300: 32px;
+  --icn-size-400: 48px;
+  --icn-size-500: 64px;
+
+  /* --------------------------------
+
+  Buttons
+
+  -------------------------------- */
+
+  --btn_ff: var(--ff-secondary-400);
+  --btn_fs: var(--fs-base);
+  --btn_radius: 4.8px;
+  --btn_paddding: var(--sp-300) var(--sp-500);
+
+  --btn_bg--primary: var(--clr-primary-400);
+  --btn_clr--primary: var(--clr-neutral-100);
+  --btn_bg--primary--active: var(--clr-primary-200);
+  --btn_clr--primary--active: var(--clr-primary-400);
+
+  --btn_bg--secondary: var(--clr-neutral-accent);
+  --btn_clr--secondary: var(--clr-neutral-800);
+  --btn_bg--secondary--active: var(--clr-neutral-300);
+  --btn_clr--secondary--active: var(--clr-neutral-900);
+
+  --btn_bg--accent: var(--clr-semantic_invalid-400);
+  --btn_clr--accent: var(--clr-semantic_invalid-100);
+  --btn_bg--accent--active: var(--clr-semantic_invalid-100);
+  --btn_clr--accent--active: var(--clr-semantic_invalid-400);
+
+  --btn_bg--accent_light: var(--clr-semantic_invalid-100);
+  --btn_clr--accent_light: var(--clr-semantic_invalid-400);
+  --btn_bg--accent_light--active: var(--clr-semantic_invalid-400);
+  --btn_clr--accent_light--active: var(--clr-semantic_invalid-100);
+
+  /* --------------------------------
+
+  Inputs
+
+  -------------------------------- */
+
+  --clr-ip--range-primary-dark: var(--clr-accent-400);
+  --clr-ip--range-primary-light: var(--clr-accent-300);
+  --ip-range-track-height: 0.5rem;
+  --ip-range-thumb-height: 1rem;
+
+  --ip-select-txt-clr: var(--clr-neutral-600);
+  --ip-select-btn-border: 1px solid var(--clr-neutral-200);
+  --ip-select-btn-border-radius: 0.25em;
+  --ip-select-btn-bg: var(--clr-neutral-100);
+  --ip-select-btn-arrow: 6px solid var(--clr-neutral-800);
+  --ip-select-dropdown-border: var(--ip-select-btn-border);
+  --ip-select-dropdown-bg: var(--ip-select-btn-bg);
+  --ip-select-dropdown-pad: var(--sp-100);
+  --ip-select-dropdown-mrg: var(--sp-100) 0 0;
+  --ip-select-dropdown-radius: 0.25rem;
+  --ip-select-dropdown-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  --ip-select-dropdown-max-height: 200px;
+  --ip-select-li-pad: var(--sp-200);
+  --ip-select-li--selected-bg: var(--clr-neutral-150);
+  --ip-select--li--selected-clr: var(--clr-neutral-700);
+  --ip-select-li--selected-border-radius: 4px;
+  --ip-select-li--selected-ff: var(--ff-primary-700);
+  --ip-select-li--hover-bg: var(--ip-select-li--selected-bg);
+  --ip-select-li--hover-radius: 4px;
+
+  /* --------------------------------
+
+  Page Defaults
+
+  -------------------------------- */
+
+  --pg-pad: var(--sp-400);
+  --td-100: 150ms;
+  --pdf-margin: 2cm;
+}
+
+/* --------------------------------
+
+Global Styles
+
+-------------------------------- */
+
+body {
+  font-family: var(--ff-primary-400);
+  font-size: var(--fs-base);
+}
+
+p {
+  font-size: var(--fs-base);
+}
+
+input[type='text'],
+input[type='textarea'],
+button {
+  appearance: none;
+  outline: none;
+}
+
+input {
+  accent-color: var(--clr-primary-300);
+}
+
+label {
+  cursor: pointer;
+}
+
+/* --------------------------------
+
+Joshw Comeau Defaults
+
+ -------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  line-height: 1.5;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+:root {
+  isolation: isolate;
+}
