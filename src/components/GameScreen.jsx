@@ -1,22 +1,19 @@
 import { useState, useEffect } from 'react'
-import { makeRequest } from '../core/lastfm-api.jsx'
+import { getAlbums } from '../core/lastfm-api.jsx'
 import '/src/styles/GameScreen.scss'
 
-export default function GameScreen() {
+export default function GameScreen({ tagName }) {
   const [score, setScore] = useState(0)
   const [bestScore, setBestScore] = useState(score)
   const [cards, setCards] = useState([])
 
   useEffect(() => {
-    makeRequest({
-      method: 'tag.getTopAlbums',
-      tag: 'rock',
-    }).then((response) => {
-      response.json().then(({ albums }) => {
-        setCards(albums.album)
-      })
-    })
-  }, [])
+    async function updateCards() {
+      const { albums } = await getAlbums(tagName)
+      setCards(albums.album)
+    }
+    updateCards()
+  }, [tagName])
 
   return (
     <div className="main__screen--game">

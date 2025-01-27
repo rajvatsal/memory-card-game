@@ -5,7 +5,7 @@ import './styles/App.scss'
 function App() {
   return (
     <main className="main">
-      <GameScreen />
+      <GameScreen tagName="rock" />
     </main>
   )
 }
