@@ -2,38 +2,44 @@ import { useState, useEffect } from 'react'
 import { getAlbums } from '../core/lastfm-api.jsx'
 import '/src/styles/GameScreen.scss'
 
-let clickedAlbums = []
+function shuffle(array) {
+  let currentIndex = array.length
 
-function updateClickedAlbums(album) {
-  clickedAlbums.push(album)
+  while (currentIndex !== 0) {
+    const randomIndex = Math.floor(Math.random() * currentIndex)
+    currentIndex--
+    ;[array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ]
+  }
+  return array
 }
 
-function resetGame() {
-  clickedAlbums = []
-}
-
-function isGameOver(key) {
+function checkIsGameOver(key, clickedAlbums) {
   return clickedAlbums.includes(key)
 }
 
 export default function GameScreen({ tagName }) {
-  const [score, setScore] = useState(0)
-  const [bestScore, setBestScore] = useState(score)
+  const [clickedCards, setClickedCards] = useState([])
+  const [bestScore, setBestScore] = useState(0)
   const [cards, setCards] = useState([])
-  const [gameStatus, setGameStatus] = useState('active')
+  const [isGameOver, setIsGameOver] = useState(false)
 
-  if (gameStatus === 'over') {
+  const score = clickedCards.length
+
+  if (isGameOver) {
     alert('game over')
-    resetGame()
-    setGameStatus('active')
+    setClickedCards([])
+    setIsGameOver(false)
   }
 
   useEffect(() => {
-    async function updateCards() {
+    async function fetchCards() {
       const { albums } = await getAlbums(tagName)
       setCards(albums.album)
     }
-    updateCards()
+    fetchCards()
   }, [tagName])
 
   return (
@@ -53,21 +59,19 @@ export default function GameScreen({ tagName }) {
       </div>
 
       <div className="main__screen--game__cards">
-        {cards.map((card) => {
+        {shuffle(cards).map((card) => {
           return (
             <div
               key={card.name}
               className="main_screen--game__cards__card"
               onMouseDown={() => {
-                if (isGameOver(card.name, clickedAlbums)) {
-                  setGameStatus('over')
-                  setScore(0)
+                if (checkIsGameOver(card.name, clickedCards)) {
+                  setIsGameOver(true)
                   return
                 }
                 const activeScore = score + 1
                 if (bestScore < activeScore) setBestScore(activeScore)
-                setScore(activeScore)
-                updateClickedAlbums(card.name)
+                setClickedCards([...clickedCards, card.name])
               }}
             >
               <img src={card.image[3]['#text']} alt="album cover" />
