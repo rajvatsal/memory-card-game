@@ -6,3 +6,12 @@ export async function getAlbums(tagName) {
   const response = await fetch(finalUrl, { method: 'GET' })
   return response.json()
 }
+
+export function getUrl(queries) {
+  let finalUrl = `${rootUrl}?api_key=${key}&format=json`
+  for (const query in queries) {
+    finalUrl = finalUrl.concat(`&${query}=${queries[query]}`)
+  }
+
+  return finalUrl
+}
