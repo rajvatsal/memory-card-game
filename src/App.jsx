@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import GameScreen from './components/GameScreen.jsx'
-import LevelSelector from './components/LevelSelector.jsx'
+import GenreSelector from './components/GenreSelector.jsx'
 import './styles/App.scss'
 
 const tags = ['Disco', 'Rock', 'HipHop', 'Electronic']
@@ -15,7 +15,7 @@ function Screen() {
         setSelectedTag(tag)
       }
     }
-    screen = <LevelSelector tags={tags} onClick={getOnClickChoice} />
+    screen = <GenreSelector tags={tags} onClick={getOnClickChoice} />
   } else {
     screen = <GameScreen tagName={selectedTag} />
   }

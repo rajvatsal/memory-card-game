@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { getAlbums } from '../core/lastfm-api.jsx'
+import LoadingScreen from './LoadingScreen.jsx'
 import '/src/styles/GameScreen.scss'
 
 function shuffle(array) {
@@ -20,10 +21,9 @@ function checkIsGameOver(key, clickedAlbums) {
   return clickedAlbums.includes(key)
 }
 
-export default function GameScreen({ tagName }) {
+function Game({ cards, tagName, imageLoaded }) {
   const [clickedCards, setClickedCards] = useState([])
   const [bestScore, setBestScore] = useState(0)
-  const [cards, setCards] = useState([])
   const [isGameOver, setIsGameOver] = useState(false)
 
   const score = clickedCards.length
@@ -34,31 +34,23 @@ export default function GameScreen({ tagName }) {
     setIsGameOver(false)
   }
 
-  useEffect(() => {
-    async function fetchCards() {
-      const { albums } = await getAlbums(tagName)
-      setCards(albums.album)
-    }
-    fetchCards()
-  }, [tagName])
-
   return (
-    <div className="main__screen--game">
-      <div className="main__screen--game__header">
-        <h1 className="main__screen--game__header__heading">
+    <div className="screen--game">
+      <div className="screen--game__header">
+        <h1 className="screen--game__header__heading">
           {tagName.toUpperCase()}
         </h1>
-        <div className="main__screen--game__header__scores">
-          <p className="main__screen--game__header__scores__best">
+        <div className="screen--game__header__scores">
+          <p className="screen--game__header__scores__best">
             BEST SCORE: {bestScore}
           </p>
-          <p className="main__screen--game__header__scores__current">
+          <p className="screen--game__header__scores__current">
             SCORE: {score}
           </p>
         </div>
       </div>
 
-      <div className="main__screen--game__cards">
+      <div className="screen--game__cards">
         {shuffle(cards).map((card) => {
           return (
             <div
@@ -74,12 +66,45 @@ export default function GameScreen({ tagName }) {
                 setClickedCards([...clickedCards, card.name])
               }}
             >
-              <img src={card.image[3]['#text']} alt="album cover" />
+              <img
+                src={card.image[3]['#text']}
+                onLoad={imageLoaded}
+                alt="album cover"
+              />
               <p>{card.name}</p>
             </div>
           )
         })}
       </div>
     </div>
+  )
+}
+
+export default function GameScreen({ tagName }) {
+  const [cards, setCards] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  const loadedImageCount = useRef(0)
+
+  function imageLoaded() {
+    loadedImageCount.current = loadedImageCount.current + 1
+    if (loadedImageCount.current === cards.length) setIsLoading(false)
+  }
+
+  useEffect(() => {
+    async function fetchCards() {
+      const { albums } = await getAlbums(tagName)
+      setCards(albums.album)
+    }
+    fetchCards()
+  }, [tagName])
+
+  return isLoading ? (
+    <>
+      <LoadingScreen />
+      <Game {...{ cards, tagName, imageLoaded }} />
+    </>
+  ) : (
+    <Game {...{ cards, tagName, imageLoaded }} />
   )
 }

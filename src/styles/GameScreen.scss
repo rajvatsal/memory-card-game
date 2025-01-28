@@ -1,7 +1,13 @@
-.main__screen--game {
+.screen--game {
   &__cards {
     display: grid;
     grid-template: 1fr / repeat(auto-fill, 200px);
     gap: var(--sp-500);
   }
+}
+
+.screen--loading {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
 }
