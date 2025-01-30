@@ -8,6 +8,10 @@ const tags = ['Disco', 'Rock', 'HipHop', 'Electronic']
 function Screen() {
   const [selectedTag, setSelectedTag] = useState(null)
 
+  function resetGenre() {
+    setSelectedTag(null)
+  }
+
   let screen
   if (selectedTag === null) {
     function getOnClickChoice(tag) {
@@ -17,7 +21,7 @@ function Screen() {
     }
     screen = <GenreSelector tags={tags} onClick={getOnClickChoice} />
   } else {
-    screen = <GameScreen tagName={selectedTag} />
+    screen = <GameScreen tagName={selectedTag} resetGenre={resetGenre} />
   }
 
   return screen

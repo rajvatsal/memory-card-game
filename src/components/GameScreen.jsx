@@ -21,34 +21,61 @@ function checkIsGameOver(key, clickedAlbums) {
   return clickedAlbums.includes(key)
 }
 
-function Game({ cards, tagName, imageLoaded }) {
+function Settings({ restartGame, resetGenre }) {
+  return (
+    <div className="screen--game__settings">
+      <button type="button" onClick={restartGame}>
+        Restart
+      </button>
+      <button type="button" onClick={resetGenre}>
+        Change Genre
+      </button>
+    </div>
+  )
+}
+
+function Scoreboard({ bestScore, score, tagName }) {
+  return (
+    <div className="screen--game__header">
+      <h1 className="screen--game__header__heading">{tagName.toUpperCase()}</h1>
+      <div className="screen--game__header__scores">
+        <p className="screen--game__header__scores__best">
+          BEST SCORE: {bestScore}
+        </p>
+        <p className="screen--game__header__scores__current">SCORE: {score}</p>
+      </div>
+    </div>
+  )
+}
+
+function Game({ cards, tagName, imageLoaded, resetGenre }) {
   const [clickedCards, setClickedCards] = useState([])
   const [bestScore, setBestScore] = useState(0)
-  const [isGameOver, setIsGameOver] = useState(false)
+  const [gameState, setGameState] = useState('running')
 
   const score = clickedCards.length
 
-  if (isGameOver) {
-    alert('game over')
-    setClickedCards([])
-    setIsGameOver(false)
+  function restartGame() {
+    setGameState('restarted')
+  }
+
+  switch (gameState) {
+    case 'over':
+      console.log('game over')
+      setClickedCards([])
+      setGameState('running')
+      break
+    case 'restarted':
+      console.log('restarted')
+      setClickedCards([])
+      setGameState('running')
+      break
   }
 
   return (
     <div className="screen--game">
-      <div className="screen--game__header">
-        <h1 className="screen--game__header__heading">
-          {tagName.toUpperCase()}
-        </h1>
-        <div className="screen--game__header__scores">
-          <p className="screen--game__header__scores__best">
-            BEST SCORE: {bestScore}
-          </p>
-          <p className="screen--game__header__scores__current">
-            SCORE: {score}
-          </p>
-        </div>
-      </div>
+      <Scoreboard {...{ bestScore, score, tagName }} />
+      <Settings {...{ restartGame, resetGenre }} />
 
       <div className="screen--game__cards">
         {shuffle(cards).map((card) => {
@@ -58,7 +85,7 @@ function Game({ cards, tagName, imageLoaded }) {
               className="main_screen--game__cards__card"
               onMouseDown={() => {
                 if (checkIsGameOver(card.name, clickedCards)) {
-                  setIsGameOver(true)
+                  setGameState('over')
                   return
                 }
                 const activeScore = score + 1
@@ -80,7 +107,7 @@ function Game({ cards, tagName, imageLoaded }) {
   )
 }
 
-export default function GameScreen({ tagName }) {
+export default function GameScreen({ tagName, resetGenre }) {
   const [cards, setCards] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
@@ -105,6 +132,6 @@ export default function GameScreen({ tagName }) {
       <Game {...{ cards, tagName, imageLoaded }} />
     </>
   ) : (
-    <Game {...{ cards, tagName, imageLoaded }} />
+    <Game {...{ cards, tagName, imageLoaded, resetGenre }} />
   )
 }
