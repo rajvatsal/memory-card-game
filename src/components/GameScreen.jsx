@@ -48,7 +48,7 @@ function Scoreboard({ bestScore, score, tagName }) {
   )
 }
 
-function Game({ tagName, imageLoaded, resetGenre, cards }) {
+function Game({ tagName, incrementImageLoadedCount, resetGenre, cards }) {
   const [clickedCards, setClickedCards] = useState([])
   const [bestScore, setBestScore] = useState(0)
   const [gameState, setGameState] = useState('running')
@@ -95,7 +95,7 @@ function Game({ tagName, imageLoaded, resetGenre, cards }) {
             >
               <img
                 src={card.image[3]['#text']}
-                onLoad={imageLoaded}
+                onLoad={incrementImageLoadedCount}
                 alt="album cover"
               />
               <p>{card.name}</p>
@@ -114,7 +114,7 @@ export default function GameScreen({ tagName, resetGenre, cachedCards }) {
 
   const loadedImageCount = useRef(0)
 
-  function imageLoaded() {
+  function incrementImageLoadedCount() {
     loadedImageCount.current = loadedImageCount.current + 1
     if (loadedImageCount.current === cards.length) setIsLoading(false)
   }
@@ -136,9 +136,9 @@ export default function GameScreen({ tagName, resetGenre, cachedCards }) {
   return isLoading ? (
     <>
       <LoadingScreen />
-      <Game {...{ cards, tagName, imageLoaded }} />
+      <Game {...{ cards, tagName, incrementImageLoadedCount }} />
     </>
   ) : (
-    <Game {...{ cards, tagName, imageLoaded, resetGenre }} />
+    <Game {...{ cards, tagName, incrementImageLoadedCount, resetGenre }} />
   )
 }
