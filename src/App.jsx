@@ -5,6 +5,11 @@ import './styles/App.scss'
 
 const tags = ['Disco', 'Rock', 'HipHop', 'Electronic']
 
+const cachedCards = tags.reduce((acc, val, i, arr) => {
+  acc[val.toLowerCase()] = null
+  return acc
+}, {})
+
 function Screen() {
   const [selectedTag, setSelectedTag] = useState(null)
 
@@ -21,7 +26,13 @@ function Screen() {
     }
     screen = <GenreSelector tags={tags} onClick={getOnClickChoice} />
   } else {
-    screen = <GameScreen tagName={selectedTag} resetGenre={resetGenre} />
+    screen = (
+      <GameScreen
+        tagName={selectedTag}
+        resetGenre={resetGenre}
+        cachedCards={cachedCards}
+      />
+    )
   }
 
   return screen

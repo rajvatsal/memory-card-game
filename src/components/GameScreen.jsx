@@ -48,7 +48,7 @@ function Scoreboard({ bestScore, score, tagName }) {
   )
 }
 
-function Game({ cards, tagName, imageLoaded, resetGenre }) {
+function Game({ tagName, imageLoaded, resetGenre, cards }) {
   const [clickedCards, setClickedCards] = useState([])
   const [bestScore, setBestScore] = useState(0)
   const [gameState, setGameState] = useState('running')
@@ -107,8 +107,9 @@ function Game({ cards, tagName, imageLoaded, resetGenre }) {
   )
 }
 
-export default function GameScreen({ tagName, resetGenre }) {
-  const [cards, setCards] = useState([])
+export default function GameScreen({ tagName, resetGenre, cachedCards }) {
+  const activeCards = cachedCards[tagName.toLowerCase()]
+  const [cards, setCards] = useState(activeCards || [])
   const [isLoading, setIsLoading] = useState(true)
 
   const loadedImageCount = useRef(0)
@@ -119,12 +120,18 @@ export default function GameScreen({ tagName, resetGenre }) {
   }
 
   useEffect(() => {
-    async function fetchCards() {
-      const { albums } = await getAlbums(tagName)
-      setCards(albums.album)
+    if (activeCards === null) {
+      async function fetchCards() {
+        const { albums } = await getAlbums(tagName)
+        setCards(albums.album)
+      }
+      fetchCards()
     }
-    fetchCards()
-  }, [tagName])
+
+    return () => {
+      cachedCards[tagName.toLowerCase()] = cards
+    }
+  }, [tagName, activeCards])
 
   return isLoading ? (
     <>
