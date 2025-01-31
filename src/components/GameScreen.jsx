@@ -1,21 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { getAlbums } from '../core/lastfm-api.jsx'
+import { createCache } from '../core/cache.jsx'
+import { shuffle } from '../core/shuffle.jsx'
 import LoadingScreen from './LoadingScreen.jsx'
 import '/src/styles/GameScreen.scss'
 
-function shuffle(array) {
-  let currentIndex = array.length
-
-  while (currentIndex !== 0) {
-    const randomIndex = Math.floor(Math.random() * currentIndex)
-    currentIndex--
-    ;[array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ]
-  }
-  return array
-}
+const cache = createCache()
 
 function checkIsGameOver(key, clickedAlbums) {
   return clickedAlbums.includes(key)
@@ -107,9 +97,8 @@ function Game({ tagName, incrementImageLoadedCount, resetGenre, cards }) {
   )
 }
 
-export default function GameScreen({ tagName, resetGenre, cachedCards }) {
-  const activeCards = cachedCards[tagName.toLowerCase()]
-  const [cards, setCards] = useState(activeCards || [])
+export default function GameScreen({ tagName, resetGenre }) {
+  const [cards, setCards] = useState(cache.fetch(tagName) || [])
   const [isLoading, setIsLoading] = useState(true)
 
   const loadedImageCount = useRef(0)
@@ -120,7 +109,7 @@ export default function GameScreen({ tagName, resetGenre, cachedCards }) {
   }
 
   useEffect(() => {
-    if (activeCards === null) {
+    if (cache.fetch(tagName) === null) {
       async function fetchCards() {
         const { albums } = await getAlbums(tagName)
         setCards(albums.album)
@@ -129,9 +118,9 @@ export default function GameScreen({ tagName, resetGenre, cachedCards }) {
     }
 
     return () => {
-      cachedCards[tagName.toLowerCase()] = cards
+      cache.set(tagName, cards)
     }
-  }, [tagName, activeCards])
+  }, [tagName, cards])
 
   return isLoading ? (
     <>
