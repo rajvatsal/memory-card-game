@@ -40,7 +40,7 @@ function Screen() {
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
-  const loadCount = useRef(0)
+  const loadCount = useRef(1)
 
   const incrementLoadCount = useCallback(() => {
     if (loadCount.current === tags.length + 1) {
@@ -48,6 +48,7 @@ function App() {
       loadCount.current = 0
     }
 
+    console.log('load count', loadCount.current)
     loadCount.current += 1
   }, [])
 
