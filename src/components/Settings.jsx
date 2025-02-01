@@ -5,18 +5,14 @@ import Music from './Icons/Music.jsx'
 function useSettings(initValue) {
   const [isOpen, setIsOpen] = useState(initValue)
 
-  function toggle() {
+  function toggle(e) {
+    if (e !== undefined) e.stopPropagation()
     setIsOpen(!isOpen)
   }
 
   useEffect(() => {
     if (isOpen === true) {
-      let count = 1
       function updateState() {
-        if (count === 1) {
-          count++
-          return
-        }
         setIsOpen(!isOpen)
       }
       window.addEventListener('click', updateState)
