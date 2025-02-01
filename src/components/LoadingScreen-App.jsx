@@ -10,7 +10,7 @@ export default function LoadingScreen({ isLoading }) {
     <div className="loading-screen--app">
       <div className="loading-screen--app__container">
         <span>Loading </span>
-        <LoadingIcon className="loading-screen--app" />
+        <LoadingIcon parent="loading-screen--app" />
       </div>
     </div>
   )

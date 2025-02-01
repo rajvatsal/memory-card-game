@@ -1,8 +1,8 @@
 import '/src/styles/LoadingIcons.scss'
 
 const icons = {
-  v1: (className) => (
-    <div className={`loading-icon--v1 ${className}__loading-icon`}>
+  v1: ({ className, parent }) => (
+    <div className={`loading-icon--v1 ${parent}__loading-icon ${className}`}>
       <svg
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
@@ -28,9 +28,9 @@ const icons = {
   ),
 }
 
-export default function LoadingIcon({ ver, className }) {
+export default function LoadingIcon({ ver, className, parent }) {
   className = className || ''
   ver = ver || 'v1'
-  const icon = icons[ver](className) || null
+  const icon = icons[ver]({ className, parent }) || null
   return icon
 }

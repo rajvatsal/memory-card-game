@@ -18,17 +18,22 @@ export default function LoadingScreen({ info, isLoading }) {
           className="screen--loading__text__info"
           dangerouslySetInnerHTML={{ __html: info }}
         />
-        <button
-          type="button"
-          onClick={() => {
-            setIsGameStarted(true)
-          }}
-          className={`screen--loading__start-button${isLoading === true ? ' hidden' : ''}`}
-        >
-          Start
-        </button>
+        <div className="screen--loading__container">
+          <button
+            type="button"
+            onClick={() => {
+              setIsGameStarted(true)
+            }}
+            className={`screen--loading__container__start-button${isLoading === true ? ' hidden' : ''}`}
+          >
+            Start
+          </button>
+          <LoadingIcon
+            parent="screen--loading__container"
+            className={`${isLoading === true ? '' : ' hidden'}`}
+          />
+        </div>
       </div>
-      {isLoading === false ? null : <LoadingIcon className="screen--loading" />}
     </div>
   )
 }
