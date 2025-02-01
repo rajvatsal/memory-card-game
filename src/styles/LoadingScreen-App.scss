@@ -1,0 +1,16 @@
+.loading-screen--app {
+  position: fixed;
+  inset: 0;
+  background: var(--clr-neutral-800);
+  display: flex;
+
+  &__container {
+    margin: auto;
+    display: flex;
+    align-items: end;
+  }
+
+  &__loading-icon {
+    width: var(--icn-size-400);
+  }
+}

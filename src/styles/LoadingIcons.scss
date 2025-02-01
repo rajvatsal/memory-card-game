@@ -1,0 +1,15 @@
+@keyframes load {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.loading-icon--v1 {
+  aspect-ratio: 1 / 1;
+  width: var(--icn-size-400);
+  animation: 900ms ease infinite normal load;
+}
