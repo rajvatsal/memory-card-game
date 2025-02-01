@@ -43,9 +43,10 @@ function App() {
   const loadCount = useRef(1)
 
   const incrementLoadCount = useCallback(() => {
-    if (loadCount.current === tags.length + 1) {
-      setIsLoading(false)
-      loadCount.current = 0
+    if (loadCount.current >= tags.length + 1) {
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1500)
     }
 
     console.log('load count', loadCount.current)
