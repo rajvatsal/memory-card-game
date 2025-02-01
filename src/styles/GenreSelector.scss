@@ -1,3 +1,71 @@
+@keyframes slide-in {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .screen--genre-selector {
-  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 auto;
+
+  &__container {
+    background-color: var(--bg-400);
+    backdrop-filter: blur(20px);
+    padding: var(--sp-700);
+  }
+
+  h1 {
+    padding-bottom: var(--sp-500);
+  }
+
+  &__button-container {
+    &__choice {
+      margin-right: var(--sp-100);
+      aspect-ratio: 1 / 1;
+      width: var(--icn-size-600);
+      background-size: cover;
+      border: 0;
+      transition: all 200ms ease;
+      position: relative;
+
+      &:not(:focus, :hover) {
+        filter: grayscale(1);
+      }
+
+      &__title {
+        opacity: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+      }
+
+      &:hover &__title {
+        animation: 200ms ease 1 alternate forwards slide-in;
+      }
+
+      &--disco {
+        background-image: url('/src/assets/600x/disco.webp');
+      }
+
+      &--rock {
+        background-image: url('/src/assets/600x/rock.webp');
+      }
+
+      &--electronic {
+        background-image: url('/src/assets/600x/elec.webp');
+      }
+
+      &--hiphop {
+        background-image: url('/src/assets/600x/hiphop.webp');
+      }
+    }
+  }
 }

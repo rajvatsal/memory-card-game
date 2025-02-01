@@ -59,7 +59,6 @@ $warning-100: color.adjust(
   --clr-neutral-160: #ededed;
   --clr-neutral-150: #f4f4f4;
   --clr-neutral-100: #fdfdfd;
-  --clr-neutral-accent: var(--clr-neutral-160);
 
   --clr-primary-200: #{$primary-200};
   --clr-primary-300: #{$primary-300};
@@ -79,6 +78,14 @@ $warning-100: color.adjust(
 
   --clr-semantic_warning-400: #{$warning-400};
   --clr-semantic_warning-100: #{$warning-100};
+
+  /* --------------------------------
+
+  Backgrounds
+
+  -------------------------------- */
+  --bg-400: oklch(0% 0 0deg / 0.6);
+  --bg-500: oklck(0% 0 0deg / 0.8);
 
   /* --------------------------------
 
@@ -148,19 +155,6 @@ $warning-100: color.adjust(
 
   /* --------------------------------
 
-  letter Space
-
-  -------------------------------- */
-
-  --l-sp-base: 1px;
-  --l-sp-100: calc(var(--l-sp-base) - 3.5px);
-  --l-sp-200: calc(var(--l-sp-base) - 3px);
-  --l-sp-300: calc(var(--l-sp-base) - 2px);
-  --l-sp-400: calc(var(--l-sp-base) - 1.5px);
-  --l-sp-500: calc(var(--l-sp-base) - 1px);
-
-  /* --------------------------------
-
   Icons
 
   -------------------------------- */
@@ -170,6 +164,7 @@ $warning-100: color.adjust(
   --icn-size-300: 32px;
   --icn-size-400: 48px;
   --icn-size-500: 64px;
+  --icn-size-600: 128px;
 
   /* --------------------------------
 
@@ -204,74 +199,9 @@ $warning-100: color.adjust(
 
   /* --------------------------------
 
-  Inputs
-
-  -------------------------------- */
-
-  --clr-ip--range-primary-dark: var(--clr-accent-400);
-  --clr-ip--range-primary-light: var(--clr-accent-300);
-  --ip-range-track-height: 0.5rem;
-  --ip-range-thumb-height: 1rem;
-
-  --ip-select-txt-clr: var(--clr-neutral-600);
-  --ip-select-btn-border: 1px solid var(--clr-neutral-200);
-  --ip-select-btn-border-radius: 0.25em;
-  --ip-select-btn-bg: var(--clr-neutral-100);
-  --ip-select-btn-arrow: 6px solid var(--clr-neutral-800);
-  --ip-select-dropdown-border: var(--ip-select-btn-border);
-  --ip-select-dropdown-bg: var(--ip-select-btn-bg);
-  --ip-select-dropdown-pad: var(--sp-100);
-  --ip-select-dropdown-mrg: var(--sp-100) 0 0;
-  --ip-select-dropdown-radius: 0.25rem;
-  --ip-select-dropdown-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  --ip-select-dropdown-max-height: 200px;
-  --ip-select-li-pad: var(--sp-200);
-  --ip-select-li--selected-bg: var(--clr-neutral-150);
-  --ip-select--li--selected-clr: var(--clr-neutral-700);
-  --ip-select-li--selected-border-radius: 4px;
-  --ip-select-li--selected-ff: var(--ff-primary-700);
-  --ip-select-li--hover-bg: var(--ip-select-li--selected-bg);
-  --ip-select-li--hover-radius: 4px;
-
-  /* --------------------------------
-
   Page Defaults
 
   -------------------------------- */
-
-  --pg-pad: var(--sp-400);
-  --td-100: 150ms;
-  --pdf-margin: 2cm;
-}
-
-/* --------------------------------
-
-Global Styles
-
--------------------------------- */
-
-body {
-  font-family: var(--ff-primary-400);
-  font-size: var(--fs-base);
-}
-
-p {
-  font-size: var(--fs-base);
-}
-
-input[type='text'],
-input[type='textarea'],
-button {
-  appearance: none;
-  outline: none;
-}
-
-input {
-  accent-color: var(--clr-primary-300);
-}
-
-label {
-  cursor: pointer;
 }
 
 /* --------------------------------
@@ -337,4 +267,22 @@ h6 {
 
 :root {
   isolation: isolate;
+}
+
+/* --------------------------------
+
+ My Defaults
+
+ -------------------------------- */
+
+button {
+  cursor: pointer;
+}
+
+h1 {
+  font-family: var(--ff-primary-700);
+}
+
+h2 {
+  font-family: var(--ff-primary-600);
 }

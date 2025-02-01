@@ -99,9 +99,8 @@ function Game({ tagName, incrementImageLoadedCount, resetGenre, cards }) {
 }
 
 export default function GameScreen({ tagName, resetGenre }) {
-  const caches = cache.fetch(tagName)
-  const [cards, setCards] = useState(caches || [])
-  const [isLoading, setIsLoading] = useState(!caches)
+  const [cards, setCards] = useState(cache.fetch(tagName) || [])
+  const [isLoading, setIsLoading] = useState(true)
 
   const loadedImageCount = useRef(0)
 
@@ -124,7 +123,7 @@ export default function GameScreen({ tagName, resetGenre }) {
     }
   }, [tagName, cards])
 
-  return isLoading ? (
+  return isLoading && cache.get(tagName) !== null ? (
     <>
       <LoadingScreen />
       <Game {...{ cards, tagName, incrementImageLoadedCount }} />

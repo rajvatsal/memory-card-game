@@ -29,7 +29,7 @@ function Screen() {
 
 function App() {
   return (
-    <main className="main">
+    <main className="app">
       <Screen />
     </main>
   )
