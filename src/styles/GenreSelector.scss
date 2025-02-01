@@ -1,4 +1,4 @@
-@keyframes slide-in {
+@keyframes slide-down {
   0% {
     transform: translateY(-100%);
     opacity: 0;
@@ -19,11 +19,13 @@
   &__container {
     background-color: var(--bg-400);
     backdrop-filter: blur(20px);
-    padding: var(--sp-700);
+    padding: var(--sp-600);
   }
 
   h1 {
-    padding-bottom: var(--sp-500);
+    font-family: var(--ff-primary-500);
+    letter-spacing: -1.5px;
+    padding-bottom: var(--sp-400);
   }
 
   &__button-container {
@@ -48,7 +50,7 @@
       }
 
       &:hover &__title {
-        animation: 200ms ease 1 alternate forwards slide-in;
+        animation: 200ms ease 1 alternate forwards slide-down;
       }
 
       &--disco {
