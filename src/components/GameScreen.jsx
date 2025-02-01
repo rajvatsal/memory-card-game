@@ -119,14 +119,18 @@ export default function GameScreen({ info, tagName, resetGenre }) {
     }
   }, [tagName, cards])
 
-  return isLoading ? (
+  return (
     <>
-      <LoadingScreen info={info} />
-      <Game {...{ cards, isLoading, tagName, incrementImageLoadedCount }} />
+      <LoadingScreen isLoading={isLoading} info={info} />
+      <Game
+        {...{
+          cards,
+          isLoading,
+          resetGenre,
+          tagName,
+          incrementImageLoadedCount,
+        }}
+      />
     </>
-  ) : (
-    <Game
-      {...{ cards, tagName, isLoading, incrementImageLoadedCount, resetGenre }}
-    />
   )
 }
