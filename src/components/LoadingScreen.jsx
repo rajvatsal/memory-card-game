@@ -23,7 +23,7 @@ export default function LoadingScreen({ info, isLoading }) {
           onClick={() => {
             setIsGameStarted(true)
           }}
-          className={`screen--loading__start-button ${isGameStarted ? '' : 'hidden'}`}
+          className={`screen--loading__start-button${isLoading === true ? ' hidden' : ''}`}
         >
           Start
         </button>
