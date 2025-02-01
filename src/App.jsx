@@ -28,7 +28,7 @@ function Screen() {
   } else {
     screen = (
       <GameScreen
-        info={tagInfo_c.fetch(selectedTag)}
+        info={tagInfo_c.fetch(selectedTag, { type: 'cors', method: 'GET' })}
         tagName={selectedTag}
         resetGenre={resetGenre}
       />
@@ -54,7 +54,7 @@ function App() {
   useEffect(() => {
     for (const tag of tags) {
       const url = getUrl({ method: 'tag.getInfo', tag: tag })
-      fetch(url).then((response) => {
+      fetch(url, { type: 'cors', method: 'GET' }).then((response) => {
         response.json().then(({ tag }) => {
           tagInfo_c.set(tag.name, tag.wiki.summary)
           incrementLoadCount()

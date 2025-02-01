@@ -94,7 +94,7 @@ function Game({
 }
 
 export default function GameScreen({ info, tagName, resetGenre }) {
-  const caches = cache.fetch(tagName)
+  const caches = cache.fetch(tagName, { type: 'cors', method: 'GET' })
   const [cards, setCards] = useState(caches || [])
   const [isLoading, setIsLoading] = useState(!caches)
 
@@ -106,7 +106,7 @@ export default function GameScreen({ info, tagName, resetGenre }) {
   }
 
   useEffect(() => {
-    if (cache.fetch(tagName) === null) {
+    if (cache.fetch(tagName, { type: 'cors', method: 'GET' }) === null) {
       async function fetchCards() {
         const { albums } = await getAlbums(tagName)
         setCards(albums.album)
