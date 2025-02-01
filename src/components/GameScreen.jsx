@@ -3,25 +3,13 @@ import { getAlbums } from '../core/lastfm-api.jsx'
 import { createCache } from '../core/cache.jsx'
 import { shuffle } from '../core/shuffle.jsx'
 import LoadingScreen from './LoadingScreen.jsx'
+import Settings from './Settings.jsx'
 import '/src/styles/GameScreen.scss'
 
 const cache = createCache()
 
 function checkIsGameOver(key, clickedAlbums) {
   return clickedAlbums.includes(key)
-}
-
-function Settings({ restartGame, resetGenre }) {
-  return (
-    <div className="screen--game__settings">
-      <button type="button" onClick={restartGame}>
-        Restart
-      </button>
-      <button type="button" onClick={resetGenre}>
-        Change Genre
-      </button>
-    </div>
-  )
 }
 
 function Scoreboard({ bestScore, score, tagName }) {
@@ -38,7 +26,13 @@ function Scoreboard({ bestScore, score, tagName }) {
   )
 }
 
-function Game({ tagName, incrementImageLoadedCount, resetGenre, cards }) {
+function Game({
+  isLoading,
+  tagName,
+  incrementImageLoadedCount,
+  resetGenre,
+  cards,
+}) {
   const [clickedCards, setClickedCards] = useState([])
   const [bestScore, setBestScore] = useState(0)
   const [gameState, setGameState] = useState('running')
@@ -61,9 +55,9 @@ function Game({ tagName, incrementImageLoadedCount, resetGenre, cards }) {
       setGameState('running')
       break
   }
-
+  console.log('Is loading?', isLoading)
   return (
-    <div className="screen--game">
+    <div className={`screen--game ${!isLoading || 'hidden'}`}>
       <Scoreboard {...{ bestScore, score, tagName }} />
       <Settings {...{ restartGame, resetGenre }} />
 
@@ -73,7 +67,7 @@ function Game({ tagName, incrementImageLoadedCount, resetGenre, cards }) {
             <button
               type="button"
               key={card.name}
-              className="main_screen--game__cards__card"
+              className="screen--game__cards__card"
               onMouseDown={() => {
                 if (checkIsGameOver(card.name, clickedCards)) {
                   setGameState('over')
@@ -88,8 +82,9 @@ function Game({ tagName, incrementImageLoadedCount, resetGenre, cards }) {
                 src={card.image[3]['#text']}
                 onLoad={incrementImageLoadedCount}
                 alt="album cover"
+                className="screen--game__cards__card__image"
               />
-              <p>{card.name}</p>
+              <p className="screen--game__cards__card__title">{card.name}</p>
             </button>
           )
         })}
@@ -126,10 +121,12 @@ export default function GameScreen({ tagName, resetGenre }) {
 
   return isLoading ? (
     <>
-      <LoadingScreen />
-      <Game {...{ cards, tagName, incrementImageLoadedCount }} />
+      <LoadingScreen tag={tagName} />
+      <Game {...{ cards, isLoading, tagName, incrementImageLoadedCount }} />
     </>
   ) : (
-    <Game {...{ cards, tagName, incrementImageLoadedCount, resetGenre }} />
+    <Game
+      {...{ cards, tagName, isLoading, incrementImageLoadedCount, resetGenre }}
+    />
   )
 }

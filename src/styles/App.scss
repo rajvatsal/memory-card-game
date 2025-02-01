@@ -1,4 +1,5 @@
-@use './utilities/_variables.scss';
+@import url('./utilities/_variables.scss');
+@import url('./utilities/_classes.scss');
 
 .app {
   background-image: url('/src/assets/app-bg.jpg');

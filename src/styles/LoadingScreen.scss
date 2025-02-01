@@ -1,6 +1,50 @@
+@keyframes load {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
 .screen--loading {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: var(--clr-primary-400);
+  background: var(--bg-500);
+  backdrop-filter: blur(20px);
+  display: flex;
+
+  &__text {
+    margin: auto;
+    transition: opacity 500ms ease-out;
+
+    &__heading {
+      font-family: var(--ff-primary-600);
+      font-size: var(--fs-400);
+    }
+
+    &__info {
+      max-width: 500px;
+      color: var(--clr-neutral-300);
+
+      a {
+        white-space: nowrap;
+        color: inherit;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__loader {
+    aspect-ratio: 1 / 1;
+    width: var(--icn-size-400);
+    animation: 900ms ease infinite normal load;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: var(--sp-200);
+    margin: var(--sp-200);
+  }
 }

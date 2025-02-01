@@ -1,0 +1,41 @@
+.settings {
+  position: absolute;
+  top: var(--sp-500);
+  right: var(--sp-500);
+
+  &:hover &__toggle {
+    transform: rotate(45deg);
+  }
+
+  &__toggle {
+    aspect-ratio: 1 / 1;
+    width: var(--icn-size-300);
+    transition: 100ms ease transform;
+  }
+
+  &__container {
+    display: grid;
+    grid-template: 1fr / 1fr;
+    grid-auto-rows: 1fr;
+
+    &__option {
+      background: var(--clr-neutral-800);
+      text-align: left;
+      border: 0;
+      font-size: var(--fs-200);
+      padding: var(--sp-200);
+      color: var(--clr-neutral-100);
+
+      &__icon {
+        aspect-ratio: 1 / 1;
+        width: var(--icn-size-200);
+        padding-right: var(--sp-200);
+      }
+
+      &:hover {
+        background: var(--clr-neutral-200);
+        color: var(--clr-neutral-700);
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import GameScreen from './components/GameScreen.jsx'
 import GenreSelector from './components/GenreSelector.jsx'
+import LoadingScreen from './components/LoadingScreen.jsx'
 import './styles/App.scss'
 
 const tags = ['Disco', 'Rock', 'HipHop', 'Electronic']
