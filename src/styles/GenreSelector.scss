@@ -42,15 +42,20 @@
         filter: grayscale(1);
       }
 
+      &:hover &__title {
+        animation: 200ms ease 1 alternate forwards slide-down;
+      }
+
+      &:hover,
+      &:focus {
+        box-shadow: 0 0 20px var(--bg-500);
+      }
+
       &__title {
         opacity: 0;
         position: absolute;
         top: 100%;
         left: 0;
-      }
-
-      &:hover &__title {
-        animation: 200ms ease 1 alternate forwards slide-down;
       }
 
       &--disco {
