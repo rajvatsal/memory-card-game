@@ -66,18 +66,31 @@ function App() {
   }, [incrementLoadCount])
 
   return (
-    <main className="app">
-      <img
-        src={bg}
-        alt=""
-        className="img-bg"
-        onLoad={() => {
-          incrementLoadCount()
+    <>
+      <p
+        id="preload-fonts"
+        style={{
+          position: 'absolute',
+          left: '-100vw',
+          opacity: '0',
+          fontFamily: 'barlowsemibold',
         }}
-      />
-      <Screen />
-      {isLoading ? <LoadingScreen /> : null}
-    </main>
+      >
+        foo bard
+      </p>
+      <main className="app">
+        <img
+          src={bg}
+          alt=""
+          className="img-bg"
+          onLoad={() => {
+            incrementLoadCount()
+          }}
+        />
+        <Screen />
+        {isLoading ? <LoadingScreen /> : null}
+      </main>
+    </>
   )
 }
 
