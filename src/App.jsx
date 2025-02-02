@@ -39,10 +39,8 @@ function Screen() {
 }
 
 function App() {
-  let [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const loadCount = useRef(1)
-
-  isLoading = true
 
   const incrementLoadCount = useCallback(() => {
     if (loadCount.current >= tags.length + 1) {
