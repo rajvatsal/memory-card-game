@@ -28,9 +28,11 @@ const icons = {
   ),
 }
 
-export default function LoadingIcon({ ver, className, parent }) {
+function LoadingIcon({ ver, className, parent }) {
   className = className || ''
   ver = ver || 'v1'
   const icon = icons[ver]({ className, parent }) || null
   return icon
 }
+
+export default LoadingIcon

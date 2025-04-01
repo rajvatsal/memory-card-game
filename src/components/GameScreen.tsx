@@ -1,14 +1,29 @@
 import { useState, useEffect, useRef } from 'react'
 import { getAlbums } from '../core/lastfm-api.jsx'
 import { createCache } from '../core/cache.jsx'
-import { shuffle } from '../core/shuffle.jsx'
-import LoadingScreen from './LoadingScreen.jsx'
+import { shuffle } from '../core/shuffle.tsx'
+import LoadingScreen from './LoadingScreen.tsx'
 import Settings from './Settings.jsx'
 import '/src/styles/GameScreen.scss'
 
+interface Card {
+  name: string
+  mbid: string
+  url: string
+  image: string[]
+  artist: {
+    name: string
+    mbid: string
+    url: string
+  }
+  '@attr': {
+    rank: string
+  }
+}
+
 const cache = createCache()
 
-function checkIsGameOver(key, clickedAlbums) {
+function checkIsGameOver(key: string, clickedAlbums: string[]) {
   return clickedAlbums.includes(key)
 }
 
@@ -33,9 +48,9 @@ function Game({
   resetGenre,
   cards,
 }) {
-  const [clickedCards, setClickedCards] = useState([])
-  const [bestScore, setBestScore] = useState(0)
-  const [gameState, setGameState] = useState('running')
+  const [clickedCards, setClickedCards] = useState<string[]>([])
+  const [bestScore, setBestScore] = useState<number>(0)
+  const [gameState, setGameState] = useState<string>('running')
 
   const score = clickedCards.length
 
@@ -45,24 +60,21 @@ function Game({
 
   switch (gameState) {
     case 'over':
-      console.log('game over')
       setClickedCards([])
       setGameState('running')
       break
     case 'restarted':
-      console.log('restarted')
       setClickedCards([])
       setGameState('running')
       break
   }
-  console.log('Is loading?', isLoading)
   return (
     <div className={`screen--game ${!isLoading || 'hidden'}`}>
       <Scoreboard {...{ bestScore, score, tagName }} />
       <Settings {...{ restartGame, resetGenre }} />
 
       <div className="screen--game__cards">
-        {shuffle(cards).map((card) => {
+        {shuffle(cards).map((card: Card) => {
           return (
             <button
               type="button"

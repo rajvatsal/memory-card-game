@@ -3,3 +3,4 @@
 
 ## TODO: FEATS
 - Background music
+- Seperate versions of loading icons into two modules

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    // other options
+    "include": ["src/**/*.(tsx|ts)"],
+    "types": ["vite/client"],
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "lib": ["es2020", "dom"],
+    "moduleResolution": "node",
+    "target": "es2020"
+  }
+}

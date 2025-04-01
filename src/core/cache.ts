@@ -1,13 +1,15 @@
-export function createCache() {
+function createCache() {
   const memory = {}
 
-  function fetch(key) {
+  const fetch = (key: string) => {
     return memory[key.toLowerCase()] || null
   }
 
-  function set(key, item) {
+  const set = (key: string, item: unknown) => {
     memory[key.toLowerCase()] = item
   }
 
   return { fetch, set }
 }
+
+export { createCache };

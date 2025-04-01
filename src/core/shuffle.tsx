@@ -1,4 +1,4 @@
-export function shuffle(array) {
+function shuffle(array: any[]): any[] {
   let currentIndex = array.length
 
   while (currentIndex !== 0) {
@@ -11,3 +11,5 @@ export function shuffle(array) {
   }
   return array
 }
+
+export { shuffle }

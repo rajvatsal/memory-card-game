@@ -1,12 +1,12 @@
 import '/src/styles/GenreSelector.scss'
 
-export default function GenreSelector({ onClick, tags }) {
+function GenreSelector({ onClick, tags }) {
   return (
     <div className="screen--genre-selector">
       <div className="screen--genre-selector__container">
         <h1>Choose A Genre</h1>
         <div className="screen--genre-selector__button-container">
-          {tags.map((tag) => (
+          {tags.map((tag: string) => (
             <button
               type="button"
               key={tag}
@@ -23,3 +23,5 @@ export default function GenreSelector({ onClick, tags }) {
     </div>
   )
 }
+
+export default GenreSelector

@@ -1,13 +1,14 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { createCache } from './core/cache.jsx'
-import { getUrl } from './core/lastfm-api.jsx'
-import bg from '/src/assets/app-bg.jpg'
-import GameScreen from './components/GameScreen.jsx'
-import GenreSelector from './components/GenreSelector.jsx'
-import LoadingScreen from './components/LoadingScreen-App.jsx'
+import { useState, useEffect, useRef, useCallback, SetStateAction } from 'react'
+import { createCache } from './core/cache.ts'
+import { getUrl } from './core/lastfm-api.ts'
+import GameScreen from './components/GameScreen.tsx'
+import GenreSelector from './components/GenreSelector.tsx'
+import LoadingScreen from './components/LoadingScreen-App.tsx'
+import bg from './assets/app-bg.jpg'
 import './styles/App.scss'
 
 const tags = ['Disco', 'Rock', 'HipHop', 'Electronic']
+// Rename to tagSummary_cache
 const tagInfo_c = createCache()
 
 function Screen() {
@@ -17,9 +18,9 @@ function Screen() {
     setSelectedTag(null)
   }
 
-  let screen
+  let screen: React.JSX.Element
   if (selectedTag === null) {
-    function getOnClickChoice(tag) {
+    const getOnClickChoice = (tag: SetStateAction<null>) => {
       return () => {
         setSelectedTag(tag)
       }
@@ -28,7 +29,7 @@ function Screen() {
   } else {
     screen = (
       <GameScreen
-        info={tagInfo_c.fetch(selectedTag, { type: 'cors', method: 'GET' })}
+        info={tagInfo_c.fetch(selectedTag)}
         tagName={selectedTag}
         resetGenre={resetGenre}
       />
@@ -49,14 +50,13 @@ function App() {
       }, 1500)
     }
 
-    console.log('load count', loadCount.current)
     loadCount.current += 1
   }, [])
 
   useEffect(() => {
     for (const tag of tags) {
       const url = getUrl({ method: 'tag.getInfo', tag: tag })
-      fetch(url, { type: 'cors', method: 'GET' }).then((response) => {
+      fetch(url, { method: 'GET' }).then((response) => {
         response.json().then(({ tag }) => {
           tagInfo_c.set(tag.name, tag.wiki.summary)
           incrementLoadCount()
@@ -88,7 +88,7 @@ function App() {
           }}
         />
         <Screen />
-        {isLoading ? <LoadingScreen /> : null}
+        <LoadingScreen {...{ isLoading }} />
       </main>
     </>
   )

@@ -1,6 +1,5 @@
-import loadingSvgPath from '/src/assets/Loading.svg'
-import LoadingIcon from './LoadingIcon.jsx'
-import LoadingText from './Icons/LoadingText.jsx'
+import LoadingIcon from './LoadingIcon.tsx'
+import LoadingText from './Icons/LoadingText.tsx'
 import '/src/styles/LoadingScreen-App.scss'
 
 export default function LoadingScreen({ isLoading }) {
@@ -12,7 +11,11 @@ export default function LoadingScreen({ isLoading }) {
     <div className="loading-screen--app">
       <div className="loading-screen--app__container">
         <LoadingText />
-        <LoadingIcon parent="loading-screen--app" />
+        <LoadingIcon
+          parent="loading-screen--app"
+          ver={undefined}
+          className={undefined}
+        />
       </div>
     </div>
   )

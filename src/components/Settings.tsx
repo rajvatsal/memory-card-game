@@ -2,10 +2,15 @@ import '/src/styles/Settings.scss'
 import { useState, useEffect } from 'react'
 import Music from './Icons/Music.jsx'
 
-function useSettings(initValue) {
-  const [isOpen, setIsOpen] = useState(initValue)
+interface UseSettings_t {
+  0: boolean
+  1: (obj: { stopPropagation: () => void }) => void
+}
 
-  function toggle(e) {
+function useSettings(initValue: unknown) {
+  const [isOpen, setIsOpen]: [Type, (obj: Type) => void] = useState(initValue)
+
+  const toggle = (e: { stopPropagation: () => void }) => {
     if (e !== undefined) e.stopPropagation()
     setIsOpen(!isOpen)
   }
@@ -26,7 +31,7 @@ function useSettings(initValue) {
 }
 
 export default function Settings({ restartGame, resetGenre }) {
-  const [isOpen, toggleSettings] = useSettings(false)
+  const [isOpen, toggleSettings] = useSettings<boolean>(false)
 
   if (isOpen === false) {
     return (

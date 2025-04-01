@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import bg from '/src/assets/app-bg.jpg'
 import LoadingIcon from './LoadingIcon.jsx'
 import '/src/styles/LoadingScreen.scss'
 
-export default function LoadingScreen({ info, isLoading }) {
+function LoadingScreen({ info, isLoading }) {
   const [isGameStarted, setIsGameStarted] = useState(false)
 
   if (isGameStarted === true) {
@@ -37,3 +37,5 @@ export default function LoadingScreen({ info, isLoading }) {
     </div>
   )
 }
+
+export default LoadingScreen

@@ -1,4 +1,4 @@
-export default function Music({ className }) {
+function Music({ className }: { className: string }) {
   return (
     <svg
       viewBox="0 0 20 20"
@@ -47,3 +47,5 @@ export default function Music({ className }) {
     </svg>
   )
 }
+
+export default Music
