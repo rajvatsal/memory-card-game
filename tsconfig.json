@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
     // other options
-    "include": ["src/**/*.(tsx|ts)"],
+    "include": ["src"],
     "types": ["vite/client"],
+    "lib": ["ESNext","es2020", "dom", "dom.iterable"],
     "jsx": "react-jsx",
+    "useDefineForClassFields": true,
+    "allowJs": false,
     "noEmit": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "allowImportingTsExtensions": true,
-    "lib": ["es2020", "dom"],
-    "moduleResolution": "node",
-    "target": "es2020"
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "isolatedModules": true,
+    "target": "ESNext"
   }
 }
