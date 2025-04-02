@@ -1,12 +1,18 @@
 import '/src/styles/GenreSelector.scss'
 
-function GenreSelector({ onClick, tags }) {
+function GenreSelector({
+  onClick,
+  tags,
+}: {
+  onClick: (tag: string) => React.EventHandler<React.MouseEvent>
+  tags: string[]
+}) {
   return (
     <div className="screen--genre-selector">
       <div className="screen--genre-selector__container">
         <h1>Choose A Genre</h1>
         <div className="screen--genre-selector__button-container">
-          {tags.map((tag: string) => (
+          {tags.map((tag) => (
             <button
               type="button"
               key={tag}

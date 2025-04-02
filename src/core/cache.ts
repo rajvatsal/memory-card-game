@@ -1,5 +1,9 @@
+interface CreateCache {
+  [key: string]: unknown
+}
+
 function createCache() {
-  const memory = {}
+  const memory: CreateCache = {}
 
   const fetch = (key: string) => {
     return memory[key.toLowerCase()] || null

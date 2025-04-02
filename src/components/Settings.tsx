@@ -1,16 +1,13 @@
 import '/src/styles/Settings.scss'
-import { useState, useEffect } from 'react'
-import Music from './Icons/Music.jsx'
+import { useState, useEffect, MouseEvent } from 'react'
+import Music from './Icons/Music.tsx'
 
-interface UseSettings_t {
-  0: boolean
-  1: (obj: { stopPropagation: () => void }) => void
-}
+function useSettings(
+  initValue: boolean
+): [boolean, React.EventHandler<MouseEvent>] {
+  const [isOpen, setIsOpen] = useState<boolean>(initValue)
 
-function useSettings(initValue: unknown) {
-  const [isOpen, setIsOpen]: [Type, (obj: Type) => void] = useState(initValue)
-
-  const toggle = (e: { stopPropagation: () => void }) => {
+  const toggle: React.EventHandler<MouseEvent> = (e: React.MouseEvent) => {
     if (e !== undefined) e.stopPropagation()
     setIsOpen(!isOpen)
   }
@@ -30,8 +27,8 @@ function useSettings(initValue: unknown) {
   return [isOpen, toggle]
 }
 
-export default function Settings({ restartGame, resetGenre }) {
-  const [isOpen, toggleSettings] = useSettings<boolean>(false)
+function Settings({ restartGame, resetGenre }) {
+  const [isOpen, toggleSettings] = useSettings(false)
 
   if (isOpen === false) {
     return (
@@ -96,3 +93,5 @@ export default function Settings({ restartGame, resetGenre }) {
     </div>
   )
 }
+
+export default Settings

@@ -1,6 +1,6 @@
 import '/src/styles/Icons/LoadingText.scss'
 
-export default function LoadingText() {
+function LoadingText() {
   return (
     <svg
       className="loading-text"
@@ -19,3 +19,5 @@ export default function LoadingText() {
     </svg>
   )
 }
+
+export default LoadingText
