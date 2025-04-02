@@ -2,8 +2,7 @@ const key = '2e585f0565f08854e15fae838aeb7196'
 const rootUrl = 'https://ws.audioscrobbler.com/2.0/'
 
 interface GetUrlParams {
-  method: string,
-  tag: string,
+  [key: string]: string
 }
 
 async function getAlbums(tagName: string) {

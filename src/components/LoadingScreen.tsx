@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
-import bg from '/src/assets/app-bg.jpg'
-import LoadingIcon from './LoadingIcon.jsx'
+import { useState } from 'react'
+import LoadingIcon from './LoadingIcon.tsx'
 import '/src/styles/LoadingScreen.scss'
 
-function LoadingScreen({ info, isLoading }) {
+interface LoadingScreenProps {
+  info: string
+  isLoading: boolean
+}
+
+function LoadingScreen({ info, isLoading }: LoadingScreenProps) {
   const [isGameStarted, setIsGameStarted] = useState(false)
 
   if (isGameStarted === true) {
@@ -31,6 +35,7 @@ function LoadingScreen({ info, isLoading }) {
           <LoadingIcon
             parent="screen--loading__container"
             className={`${isLoading === true ? '' : ' hidden'}`}
+            ver={''}
           />
         </div>
       </div>

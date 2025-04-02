@@ -3,14 +3,18 @@ import { getAlbums } from '../core/lastfm-api.ts'
 import { createCache } from '../core/cache.ts'
 import { shuffle } from '../core/shuffle.ts'
 import LoadingScreen from './LoadingScreen.tsx'
-import Settings from './Settings.jsx'
+import Settings from './Settings.tsx'
 import '/src/styles/GameScreen.scss'
 
 interface Card {
   name: string
   mbid: string
   url: string
-  image: string[]
+  image: {
+    '#text': string
+    size: string
+  }[]
+
   artist: {
     name: string
     mbid: string
@@ -21,13 +25,27 @@ interface Card {
   }
 }
 
+interface ScoreboardProps {
+  tagName: string
+  bestScore: number
+  score: number
+}
+
+interface GameProps {
+  isLoading: boolean
+  tagName: string
+  incrementImageLoadedCount: () => void
+  resetGenre: () => void
+  cards: Card[]
+}
+
 const cache = createCache()
 
 function checkIsGameOver(key: string, clickedAlbums: string[]) {
   return clickedAlbums.includes(key)
 }
 
-function Scoreboard({ bestScore, score, tagName }) {
+function Scoreboard({ bestScore, score, tagName }: ScoreboardProps) {
   return (
     <div className="screen--game__header">
       <h1 className="screen--game__header__heading">{tagName.toUpperCase()}</h1>
@@ -47,7 +65,7 @@ function Game({
   incrementImageLoadedCount,
   resetGenre,
   cards,
-}) {
+}: GameProps) {
   const [clickedCards, setClickedCards] = useState<string[]>([])
   const [bestScore, setBestScore] = useState<number>(0)
   const [gameState, setGameState] = useState<string>('running')
@@ -105,7 +123,7 @@ function Game({
   )
 }
 
-export default function GameScreen({ info, tagName, resetGenre }) {
+function GameScreen({ info, tagName, resetGenre }) {
   const caches = cache.fetch(tagName)
   const [cards, setCards] = useState(caches || [])
   const [isLoading, setIsLoading] = useState(!caches)
@@ -146,3 +164,5 @@ export default function GameScreen({ info, tagName, resetGenre }) {
     </>
   )
 }
+
+export default GameScreen

@@ -12,7 +12,7 @@ const tags = ['Disco', 'Rock', 'HipHop', 'Electronic']
 const tagInfo_c = createCache()
 
 function Screen() {
-  const [selectedTag, setSelectedTag] = useState(null)
+  const [selectedTag, setSelectedTag] = useState<string | null>(null)
 
   function resetGenre() {
     setSelectedTag(null)
@@ -20,7 +20,7 @@ function Screen() {
 
   let screen: React.JSX.Element
   if (selectedTag === null) {
-    const getOnClickChoice = (tag: SetStateAction<null>) => {
+    const getOnClickChoice = (tag: SetStateAction<string | null>) => {
       return () => {
         setSelectedTag(tag)
       }
