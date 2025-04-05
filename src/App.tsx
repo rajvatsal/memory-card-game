@@ -9,7 +9,7 @@ import './styles/App.scss'
 
 const tags = ['Disco', 'Rock', 'HipHop', 'Electronic']
 // Rename to tagSummary_cache
-const tagInfo_c = createCache()
+const tagInfo_c = createCache<string>()
 
 function Screen() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null)

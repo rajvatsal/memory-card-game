@@ -36,7 +36,7 @@ const v1 = ({ className, parent }: IconsProps) => (
 function LoadingIcon({ ver, className, parent }: LoadingIconProps) {
   className = className || ''
   ver = ver || 'v1'
-  let icon: React.ReactElement
+  let icon: React.ReactElement | null
 
   switch (ver) {
     case 'v1':

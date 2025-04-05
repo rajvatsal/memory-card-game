@@ -2,6 +2,11 @@ import '/src/styles/Settings.scss'
 import { useState, useEffect, MouseEvent } from 'react'
 import Music from './Icons/Music.tsx'
 
+interface SettingsProps {
+  restartGame: () => void
+  resetGenre: () => void
+}
+
 function useSettings(
   initValue: boolean
 ): [boolean, React.EventHandler<MouseEvent>] {
@@ -27,7 +32,7 @@ function useSettings(
   return [isOpen, toggle]
 }
 
-function Settings({ restartGame, resetGenre }) {
+function Settings({ restartGame, resetGenre }: SettingsProps) {
   const [isOpen, toggleSettings] = useSettings(false)
 
   if (isOpen === false) {

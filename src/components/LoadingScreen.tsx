@@ -3,7 +3,7 @@ import LoadingIcon from './LoadingIcon.tsx'
 import '/src/styles/LoadingScreen.scss'
 
 interface LoadingScreenProps {
-  info: string
+  info: string | null
   isLoading: boolean
 }
 
@@ -20,7 +20,7 @@ function LoadingScreen({ info, isLoading }: LoadingScreenProps) {
         <h1 className="screen--loading__text__heading">Info</h1>
         <p
           className="screen--loading__text__info"
-          dangerouslySetInnerHTML={{ __html: info }}
+          dangerouslySetInnerHTML={{ __html: info || <span></span> }}
         />
         <div className="screen--loading__container">
           <button

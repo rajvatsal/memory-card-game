@@ -39,7 +39,13 @@ interface GameProps {
   cards: Card[]
 }
 
-const cache = createCache()
+interface GameScreenProps {
+  info: string | null
+  tagName: string
+  resetGenre: () => void
+}
+
+const cache = createCache<Card[]>()
 
 function checkIsGameOver(key: string, clickedAlbums: string[]) {
   return clickedAlbums.includes(key)
@@ -123,14 +129,14 @@ function Game({
   )
 }
 
-function GameScreen({ info, tagName, resetGenre }) {
+function GameScreen({ info, tagName, resetGenre }: GameScreenProps) {
   const caches = cache.fetch(tagName)
-  const [cards, setCards] = useState(caches || [])
+  const [cards, setCards] = useState<Card[] | []>(caches || [])
   const [isLoading, setIsLoading] = useState(!caches)
 
   const loadedImageCount = useRef(0)
 
-  function incrementImageLoadedCount() {
+  const incrementImageLoadedCount = () => {
     loadedImageCount.current = loadedImageCount.current + 1
     if (loadedImageCount.current === cards.length) setIsLoading(false)
   }
